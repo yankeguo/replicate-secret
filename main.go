@@ -75,6 +75,9 @@ func main() {
 	namespaces := rg.Must(client.CoreV1().Namespaces().List(ctx, metav1.ListOptions{}))
 
 	for _, item := range namespaces.Items {
+		if item.Name == sourceNamespace {
+			continue
+		}
 		if !regexpNamespace.MatchString(item.Name) {
 			continue
 		}
